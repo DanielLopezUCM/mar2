@@ -15,16 +15,19 @@ corte(i, j):
 
     corte(i, i) = 0;
     corte(i, i+1) = 0;
-    corte(i, i+2) = 2 * (cortes[i+2] - corte[i])
     corte(i, j) = 2 * (cortes[j] - corte[i]) + min(cortes(i, k)+cortes(k,j)) para todo k tal que i < k < j, k es por donde cortar
-        si i + 2 < j
+        si i + 1 < j
 */
 
 // función que resuelve el problema
 // comentario sobre el coste, O(f(N)), donde N es ...
+// Coste N^3 donde N es el numero de cortes a realizar
 int resolver(int L, vector<int> const &cortes, int C)
 {
     vector<vector<int>> dp(C + 2, vector<int>(C + 2));
+    // Empezamos en la diagonal 2 ya que los casos base son las diagonales 0 y 1.
+    // Como ya estan inicializadas a 0 (valor por defector para los enteros) no hace falta que pasemos por esas diagonales.
+    // Empezamos por la segunda que ya se cumple la condicion para entrar en el caso recursivo
     for (int d = 2; d < C + 2; d++)
     {
         for (int i = 0; i < C + 2 - d; i++)
