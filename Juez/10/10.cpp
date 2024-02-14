@@ -42,10 +42,11 @@ struct Pelicula
     }
 };
 
-ifstream operator>>(istream &cin, Pelicula &pelicula)
+istream &operator>>(istream &cin, Pelicula &pelicula)
 {
     char aux;
     cin >> pelicula.inicio.hora >> aux >> pelicula.inicio.minuto >> pelicula.duracion;
+    return cin;
 }
 
 bool ordenar(Pelicula const &a, Pelicula const &b)
