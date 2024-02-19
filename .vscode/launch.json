@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/Dani/Universidad/Tercero/MAR2/mar2/Plantillas",
-      "program": "c:/Users/Dani/Universidad/Tercero/MAR2/mar2/Plantillas/build/Debug/outDebug",
+      "cwd": "c:/Users/Dani/Universidad/Tercero/MAR2/mar2/Juez/10",
+      "program": "c:/Users/Dani/Universidad/Tercero/MAR2/mar2/Juez/10/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

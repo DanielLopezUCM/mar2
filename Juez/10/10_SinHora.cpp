@@ -12,36 +12,11 @@
 
 using namespace std;
 
-struct Hora
-{
-    int hora, minuto;
-};
-
-bool operator<(Hora const &a, Hora const &b)
-{
-    return (a.hora < b.hora || (a.hora == b.hora && a.minuto < b.minuto));
-}
-
-bool operator==(Hora const &a, Hora const &b)
-{
-    return a.hora == b.hora && a.minuto == b.minuto;
-}
-
-bool operator>(Hora const &a, Hora const &b)
-{
-    return !(a < b || a == b);
-}
-
-Hora operator+(Hora const &a, int minutos)
-{
-    return {a.hora + (a.minuto + minutos) / 60, (a.minuto + minutos) % 60};
-}
-
 struct Pelicula
 {
-    Hora inicio;
+    int inicio;
     int duracion;
-    Hora getFin() const
+    int getFin() const
     {
         return inicio + duracion;
     }
@@ -50,7 +25,9 @@ struct Pelicula
 istream &operator>>(istream &cin, Pelicula &pelicula)
 {
     char aux;
-    cin >> pelicula.inicio.hora >> aux >> pelicula.inicio.minuto >> pelicula.duracion;
+    int auxHoras;
+    cin >> auxHoras >> aux >> pelicula.inicio >> pelicula.duracion;
+    pelicula.inicio += auxHoras * 60;
     return cin;
 }
 
@@ -66,14 +43,16 @@ int resolver(vector<Pelicula> const &peliculas)
     int n = peliculas.size();
     int mejor = 0;
     int mejorParcial;
-    vector<pair<Hora, int>> dp(n + 1);
+    pair<int, int> aux;
+    vector<pair<int, int>> dp(n + 1);
     for (int i = 0; i < n; i++)
     {
         int j = i;
-        while (j > 0 && dp[j].first > peliculas[i].inicio)
+        while (dp[j].first > peliculas[i].inicio)
         {
             j--;
         }
+
         mejorParcial = dp[j].second + peliculas[i].duracion;
         while (j >= 0)
         {
@@ -83,6 +62,7 @@ int resolver(vector<Pelicula> const &peliculas)
         }
 
         dp[i + 1] = {peliculas[i].getFin() + 10, mejorParcial};
+        aux = dp[i + 1];
         if (mejor < dp[i + 1].second)
             mejor = dp[i + 1].second;
     }
